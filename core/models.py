@@ -3,7 +3,7 @@ from django.db import models
 from django.db import models 
 from django.contrib.auth import get_user_model
 
-User = get_user_model() 
+User = get_user_model()
 
 
 class Permission(models.Model): 
@@ -24,9 +24,8 @@ class Group(models.Model):
     
 
 class UserAccess(models.Model): 
-    user = models.OneToOneField( User, on_delete=models.CASCADE, related_name="user_access") 
-    groups = models.ManyToManyField( Group, related_name="users", blank=True) 
-    permissions = models.ManyToManyField(Permission, related_name="users", blank=True)
+    groups = models.ManyToManyField( Group, related_name="user_access", blank=True) 
+    permissions = models.ManyToManyField(Permission, related_name="user_access", blank=True)
 
 
 class UserProfile(models.Model):

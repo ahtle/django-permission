@@ -68,6 +68,8 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py shell -v 2
 ```
 
-## Production note
+## Test
 
-The Compose setup uses Django’s **development** server. The `Dockerfile` default command uses **Gunicorn**; use that (or another WSGI server) with appropriate settings for real deployments.
+```bash
+docker compose run --rm web python manage.py test
+```

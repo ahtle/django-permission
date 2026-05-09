@@ -1,5 +1,4 @@
 from django.test import TestCase
-
 from core.models import Group, Permission
 from core.services import AuthService
 
