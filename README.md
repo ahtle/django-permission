@@ -1,13 +1,26 @@
 # django-permission
 
-Django app with Postgres in Docker Compose for local development.
+A Django-based authorization framework demonstrating composable permissions, group-based access control, and declarative API authorization.
+
+The project uses:
+
+Django
+Django REST Framework
+PostgreSQL
+Docker
+
+This repository is intended for local development and experimentation.
 
 ## Prerequisites
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (or Docker Engine with the Compose plugin)
+- Python 3.12+
 
 
+---
 ## Start local development
+
+1. Start the application
 
 From the project root:
 
@@ -15,10 +28,25 @@ From the project root:
 docker compose up --build
 ```
 
-- App: http://127.0.0.1:8000/
-- Postgres is published to `localhost` on port `5432` by default (`POSTGRES_PORT_PUBLISH`).
-- On each start, the `web` service runs migrations, then Django’s development server.
+This will:
 
+- build the Docker image
+- start PostgreSQL
+- install Python dependencies from requirements.txt
+- run Django migrations
+- start the Django development server
+
+Application URLs:
+
+Django app: http://localhost:8000/
+Django admin: http://localhost:8000/admin/
+PostgreSQL: localhost:5432
+
+2. Create a Django superuser (with the stack running):
+
+```bash
+docker compose exec web python manage.py createsuperuser
+```
 
 ## Stop local development
 
@@ -26,31 +54,38 @@ docker compose up --build
 docker compose down
 ```
 
-Containers and the default network are removed. The **named Postgres volume is kept**, so data survives until you delete it deliberately.
-
 ### Remove containers and wipe the database
 
 ```bash
 docker compose down -v
 ```
 
-`-v` removes the `postgres_data` volume and all database data.
+---
+## Local Python Environment
 
+The application runs fully inside Docker, but can run on local machine as well.
+
+Create local virtual environment, activate, and install:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+Then configure your IDE to use:
+
+```bash
+./.venv/bin/python
+```
+
+---
 ## Useful commands
 
-Create a Django superuser (with the stack running):
-
 ```bash
-docker compose exec web python manage.py createsuperuser
-```
-
-Run a one-off management command without starting the dev server:
-
-```bash
+# Run a one-off management command without starting the dev server:
 docker compose run --rm web python manage.py <command>
 ```
-
-useful commands:
 
 ```bash
 docker compose logs -f web
@@ -68,6 +103,7 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py shell -v 2
 ```
 
+---
 ## Test
 
 ```bash

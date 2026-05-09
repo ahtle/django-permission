@@ -49,6 +49,9 @@ class AuthService:
     @classmethod 
     def get_user_permissions(cls, user) -> set[str]:
         """ for a user, return set of permission keys """
+
+        # TODO: add caching
+
         try: 
             access = user.profile.user_access 
         except UserAccess.DoesNotExist: 
@@ -72,6 +75,8 @@ class AuthService:
     
     @staticmethod
     def assign_user_to_group(user, group: GroupDefinition):
+        # TODO: edge-case handling: user have no profile or user_access, g doesn't exists
+
         user_access = user.profile.user_access
         g = Group.objects.get(key=group.key)
         user_access.groups.add(g)
