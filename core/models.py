@@ -24,7 +24,7 @@ class Group(models.Model):
     
 
 class UserAccess(models.Model): 
-    groups = models.ManyToManyField( Group, related_name="user_access", blank=True) 
+    groups = models.ManyToManyField(Group, related_name="user_access", blank=True) 
     permissions = models.ManyToManyField(Permission, related_name="user_access", blank=True)
 
 
