@@ -50,10 +50,22 @@ Run a one-off management command without starting the dev server:
 docker compose run --rm web python manage.py <command>
 ```
 
-View logs (after `docker compose up -d`):
+useful commands:
 
 ```bash
 docker compose logs -f web
+```
+
+```bash
+docker compose exec web python manage.py makemigrations
+```
+
+```bash
+docker compose exec web python manage.py migrate
+```
+
+```bash
+docker compose exec web python manage.py shell -v 2
 ```
 
 ## Production note
